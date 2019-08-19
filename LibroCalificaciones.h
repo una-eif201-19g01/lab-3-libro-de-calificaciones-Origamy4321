@@ -21,18 +21,18 @@
 #include <iostream>
 #include <string>
 
-const int Estudiantes = 10;
+static const int ESTUDIANTES = 10;
 
-const int Examenes = 3;
+static const int EXAMENES = 3;
 
 using namespace std;
 
 class LibroCalificaciones {
-private:
+
 
     string nombreCurso;
 
-    int calificaciones[Estudiantes][Examenes];
+    int calificaciones[ESTUDIANTES][EXAMENES];
 
     int obtenerNotaMinima();
 
@@ -44,6 +44,16 @@ public:
 
     LibroCalificaciones();
 
+
+    LibroCalificaciones(const string &nombreCurso, int [][EXAMENES]);
+
+    string obtenerReporteNotas();
+
+    string obtenerReporteNotasMaxMin();
+
+    const string &getNombreCurso() const;
+
+    void setNombreCurso(const string &nombreCurso);
 
 
 };
