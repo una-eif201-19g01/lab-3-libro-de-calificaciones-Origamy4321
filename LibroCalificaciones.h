@@ -38,7 +38,7 @@ class LibroCalificaciones {
 
     int obtenerNotaMaxima();
 
-    double obtenerPromedio(const int [], const int);
+    double obtenerPromedio(const int);
 
 public:
 
@@ -60,6 +60,3 @@ public:
 
 
 #endif //CALIFICACIONES_LIBROCALIFICACIONES_H
-
-
-//nota buscar para que es std::setw()

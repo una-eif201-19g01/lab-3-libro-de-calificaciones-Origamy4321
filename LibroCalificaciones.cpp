@@ -18,7 +18,16 @@
 #include <iostream>
 
 
-LibroCalificaciones::LibroCalificaciones() {}
+LibroCalificaciones::LibroCalificaciones() {
+
+    setNombreCurso(nombreCurso);
+
+    for (int estudiante = 0; estudiante < ESTUDIANTES; ++estudiante) {
+        for (int examen = 0; examen < EXAMENES; ++examen) {
+            calificaciones[estudiante][examen] = 0;
+        }
+    }
+}
 
 LibroCalificaciones::LibroCalificaciones(const string &nombreCurso, int arregloCalificaciones[][3]) {
     setNombreCurso(nombreCurso);
@@ -36,7 +45,7 @@ int LibroCalificaciones::obtenerNotaMinima() {
 
     for (int estudiante = 0; estudiante < ESTUDIANTES; ++estudiante) {
         for (int examen = 0; examen < EXAMENES; ++examen) {
-            if (calificaciones[estudiante][examen] < notaMinima) {
+            if (calificaciones[estudiante][examen] <= notaMinima) {
                 notaMinima = calificaciones[estudiante][examen];
             }
         }
@@ -46,7 +55,7 @@ int LibroCalificaciones::obtenerNotaMinima() {
 
 int LibroCalificaciones::obtenerNotaMaxima() {
 
-    int notaMaxima;
+    int notaMaxima = 0;
 
     for (int estudiante = 0; estudiante < ESTUDIANTES; ++estudiante) {
         for (int examen = 0; examen < EXAMENES; ++examen) {
@@ -54,25 +63,23 @@ int LibroCalificaciones::obtenerNotaMaxima() {
                 notaMaxima = calificaciones[estudiante][examen];
         }
     }
-    return 0;
-}
-
-double LibroCalificaciones::obtenerPromedio(const int *, const int) {  // METODO OBTENER PROMEDIO
-
-    int promedio = 0;
-    for (int estudiante = 0; estudiante < ESTUDIANTES; ++estudiante) {
-        for (int examen = 0; examen < EXAMENES; ++examen) {
-            promedio = promedio + calificaciones[estudiante][examen];
-        }
-
-    }
-    return promedio / 3;
+    return notaMaxima;
 }
 
 
 const string &LibroCalificaciones::getNombreCurso() const {
     return nombreCurso;
 }
+
+
+double LibroCalificaciones::obtenerPromedio(const int nota) {
+    int promedio = 0;
+    for (int examen = 0; examen < EXAMENES; ++examen) {
+        promedio = promedio + calificaciones[nota][examen];
+    }
+    return promedio / 3;
+}
+
 
 void LibroCalificaciones::setNombreCurso(const string &nombreCurso) {
     LibroCalificaciones::nombreCurso = nombreCurso;
@@ -81,25 +88,29 @@ void LibroCalificaciones::setNombreCurso(const string &nombreCurso) {
 string LibroCalificaciones::obtenerReporteNotasMaxMin() {
 
     string reporte = "";
+    reporte = reporte + "\nLa nota maxima es: " + to_string(obtenerNotaMaxima());
+    reporte = reporte + "\nLa nota minima es: " + to_string(obtenerNotaMinima());
 
 
-    for (int estudiante = 0; estudiante < ESTUDIANTES; estudiante++) {
-        for (int examen = 0; examen < EXAMENES; examen++) {
-
-
-        }
-
-    }
-    return 0;
+    return reporte;
 }
 
 
 string LibroCalificaciones::obtenerReporteNotas() {
 
 
-    return std::__cxx11::string();
-}
+    string reporte;
 
+    for (int estudiante = 0; estudiante < ESTUDIANTES; ++estudiante) {
+        reporte = reporte + "\nEstudiante [" + to_string(estudiante) + "]\t\t\t";
+        for (int examen = 0; examen < EXAMENES; ++examen) {
+            reporte = reporte + "[" + to_string(calificaciones[estudiante][examen]) + "]\t\t\t";
+        }
+        reporte = reporte + "[" + to_string(obtenerPromedio(estudiante)) + "]\t\t\t";
+    }
+
+    return reporte;
+}
 
 
 

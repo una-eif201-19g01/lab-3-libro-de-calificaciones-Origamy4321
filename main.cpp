@@ -39,6 +39,9 @@ int main() {
 
     LibroCalificaciones v1("Curso Progra I", listaCalificaciones);
 
+    cout << v1.obtenerReporteNotasMaxMin() << endl;
+    cout << v1.obtenerReporteNotas() << endl;
+
 
     return 0;
 
